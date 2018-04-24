@@ -31,7 +31,7 @@
             open_in_new_tab: true,
             default_origin: '',
             default_destination: '',
-			lock_destination: false,
+            lock_destination: false,
             default_hotel_location: '',
             localization: {
                 avia_tab_caption: 'FLIGHT',
@@ -200,7 +200,7 @@
                 adults_pas_input        = container.find('#twidget-passenger-form input[name="adults"]'),
                 children_pas_input      = container.find('#twidget-passenger-form input[name="children"]'),
                 infants_pas_input       = container.find('input[name="infants"]'),
-            /* hotel vars */
+                /* hotel vars */
                 destination_hotel_input = container.find('input[name="destination"]'),
                 guests_count_label      = container.find('#twidget-g-no');
 
@@ -413,15 +413,15 @@
             dateReturn.focus(function(){
                 setTimeout(function(){
                     if(!$(document).find('.datepicker tbody').hasClass('with-return-button')){
-                            $(document).find('.datepicker tbody .datepicker-cancel-return-date').parent().remove();
-                            $(document).find('.datepicker tbody').append('<tr><td class="datepicker-cancel-return-date">'+_this.settings.localization.datepicker_return_ticket_caption+'</td></tr>');
-                            $(document).find('.datepicker tbody').addClass('with-return-button');
-                            $(document).find('.datepicker-cancel-return-date').click(function(){
-                                iconReturnDel.click()
-                            });
-                            dateReturn.datepicker('show');
-                        }
-                    }, 1);
+                        $(document).find('.datepicker tbody .datepicker-cancel-return-date').parent().remove();
+                        $(document).find('.datepicker tbody').append('<tr><td class="datepicker-cancel-return-date">'+_this.settings.localization.datepicker_return_ticket_caption+'</td></tr>');
+                        $(document).find('.datepicker tbody').addClass('with-return-button');
+                        $(document).find('.datepicker-cancel-return-date').click(function(){
+                            iconReturnDel.click()
+                        });
+                        dateReturn.datepicker('show');
+                    }
+                }, 1);
             });
             dateReturn.datepicker()
                 .on('changeMonth', function() {
@@ -492,7 +492,7 @@
                     }
                 });
             } else {
-            /* or getting user origin city from whereami */
+                /* or getting user origin city from whereami */
                 $.getJSON("https://www.travelpayouts.com/whereami?locale="+_this.settings.locale, function (data) {
                     /* input focusout update */
                     if(data){
@@ -550,10 +550,10 @@
                         }
                         $.each(citiesSortedArr[value], function(childKey, childValue){
                             container.find(".twidget-origin .twidget-auto-fill-wrapper ul").append(
-                               '<li class="clearfix" ' + (citiesSortedArr[value].main && childKey != 'main' ? 'style="padding-left:30px;"' : '') + '>' +
-                               '<span class="twidget-city-name" data-name="' + childValue.city_name + '" data-country="' + childValue.country_name + '">' + childValue.city_name + (citiesSortedArr[value].main && childKey != 'main' ? '' : ', <span>' + childValue.country_name + '</span>') + '</span>' +
-                               '<span class="twidget-num-hotel">' + childValue.code + '</span><br>' +
-                               '<span class="twidget-city-airport-name">' + (childValue.name ? childValue.name : _this.settings.localization.avia_all_airports_caption ) + '</span></li>'
+                                '<li class="clearfix" ' + (citiesSortedArr[value].main && childKey != 'main' ? 'style="padding-left:30px;"' : '') + '>' +
+                                '<span class="twidget-city-name" data-name="' + childValue.city_name + '" data-country="' + childValue.country_name + '">' + childValue.city_name + (citiesSortedArr[value].main && childKey != 'main' ? '' : ', <span>' + childValue.country_name + '</span>') + '</span>' +
+                                '<span class="twidget-num-hotel">' + childValue.code + '</span><br>' +
+                                '<span class="twidget-city-airport-name">' + (childValue.name ? childValue.name : _this.settings.localization.avia_all_airports_caption ) + '</span></li>'
                             );
                         });
                     });
@@ -623,104 +623,104 @@
                     container.find('#twidget-destination').trigger('focusout');
                 });
             }
-				
+
             /* destination city auto complete */
-           if(_this.settings.lock_destination == false){
-			container.find("#twidget-destination").keydown(function() {
-                container.find(".twidget-destination .twidget-pseudo-name").text('');
-                container.find(".twidget-destination .twidget-pseudo-country-name").text('');
-                destination_iata_input.val('');
-                container.find('.twidget-destination-iata').text('');
-            });
-            container.find("#twidget-destination").keyup(function(){
-                var v = $(this).val(),
-                    this_input = $(this),
-                    citiesSortedArr = [],
-                    citiesOrigSort = [];
-                $.getJSON("https://autocomplete.travelpayouts.com/jravia?locale="+_this.settings.locale+"&with_countries=false&q="+v, function (data) {
-                    container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
-                    $.each(data, function(key, value){
-                        if(value.city_name) {
-                            if(!citiesSortedArr[value.city_code]){
-                                citiesSortedArr[value.city_code] = [];
+            if(_this.settings.lock_destination == false){
+                container.find("#twidget-destination").keydown(function() {
+                    container.find(".twidget-destination .twidget-pseudo-name").text('');
+                    container.find(".twidget-destination .twidget-pseudo-country-name").text('');
+                    destination_iata_input.val('');
+                    container.find('.twidget-destination-iata').text('');
+                });
+                container.find("#twidget-destination").keyup(function(){
+                    var v = $(this).val(),
+                        this_input = $(this),
+                        citiesSortedArr = [],
+                        citiesOrigSort = [];
+                    $.getJSON("https://autocomplete.travelpayouts.com/jravia?locale="+_this.settings.locale+"&with_countries=false&q="+v, function (data) {
+                        container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
+                        $.each(data, function(key, value){
+                            if(value.city_name) {
+                                if(!citiesSortedArr[value.city_code]){
+                                    citiesSortedArr[value.city_code] = [];
+                                }
+                                if(!value.name){
+                                    citiesSortedArr[value.city_code].main = value;
+                                } else {
+                                    citiesSortedArr[value.city_code].push(value);
+                                }
+                                citiesOrigSort.push(value.city_code);
                             }
-                            if(!value.name){
-                                citiesSortedArr[value.city_code].main = value;
-                            } else {
-                                citiesSortedArr[value.city_code].push(value);
+                        });
+                        citiesOrigSort = $.grep(citiesOrigSort, function(v, k){
+                            return $.inArray(v ,citiesOrigSort) === k;
+                        });
+                        $.each(citiesOrigSort, function(key, value){
+                            if(citiesSortedArr[value].main) {
+                                container.find(".twidget-destination .twidget-auto-fill-wrapper ul").append(
+                                    '<li class="clearfix">' +
+                                    '<span class="twidget-city-name" data-name="' + citiesSortedArr[value].main.city_name + '" data-country="' + citiesSortedArr[value].main.country_name + '">' + citiesSortedArr[value].main.city_name + ', <span>' + citiesSortedArr[value].main.country_name + '</span></span>' +
+                                    '<span class="twidget-num-hotel">' + citiesSortedArr[value].main.code + '</span><br>' +
+                                    '<span class="twidget-city-airport-name">' +  _this.settings.localization.avia_all_airports_caption + '</span></li>'
+                                );
                             }
-                            citiesOrigSort.push(value.city_code);
-                        }
-                    });
-                    citiesOrigSort = $.grep(citiesOrigSort, function(v, k){
-                        return $.inArray(v ,citiesOrigSort) === k;
-                    });
-                    $.each(citiesOrigSort, function(key, value){
-                        if(citiesSortedArr[value].main) {
-                            container.find(".twidget-destination .twidget-auto-fill-wrapper ul").append(
-                                '<li class="clearfix">' +
-                                '<span class="twidget-city-name" data-name="' + citiesSortedArr[value].main.city_name + '" data-country="' + citiesSortedArr[value].main.country_name + '">' + citiesSortedArr[value].main.city_name + ', <span>' + citiesSortedArr[value].main.country_name + '</span></span>' +
-                                '<span class="twidget-num-hotel">' + citiesSortedArr[value].main.code + '</span><br>' +
-                                '<span class="twidget-city-airport-name">' +  _this.settings.localization.avia_all_airports_caption + '</span></li>'
-                            );
-                        }
-                        $.each(citiesSortedArr[value], function(childKey, childValue){
-                            container.find(".twidget-destination .twidget-auto-fill-wrapper ul").append(
-                                '<li class="clearfix" ' + (citiesSortedArr[value].main && childKey != 'main' ? 'style="padding-left:30px;"' : '') + '>' +
-                                '<span class="twidget-city-name" data-name="' + childValue.city_name + '" data-country="' + childValue.country_name + '">' + childValue.city_name + (citiesSortedArr[value].main && childKey != 'main' ? '' : ', <span>' + childValue.country_name + '</span>') + '</span>' +
-                                '<span class="twidget-num-hotel">' + childValue.code + '</span><br>' +
-                                '<span class="twidget-city-airport-name">' + (childValue.name ? childValue.name : _this.settings.localization.avia_all_airports_caption ) + '</span></li>'
-                            );
+                            $.each(citiesSortedArr[value], function(childKey, childValue){
+                                container.find(".twidget-destination .twidget-auto-fill-wrapper ul").append(
+                                    '<li class="clearfix" ' + (citiesSortedArr[value].main && childKey != 'main' ? 'style="padding-left:30px;"' : '') + '>' +
+                                    '<span class="twidget-city-name" data-name="' + childValue.city_name + '" data-country="' + childValue.country_name + '">' + childValue.city_name + (citiesSortedArr[value].main && childKey != 'main' ? '' : ', <span>' + childValue.country_name + '</span>') + '</span>' +
+                                    '<span class="twidget-num-hotel">' + childValue.code + '</span><br>' +
+                                    '<span class="twidget-city-airport-name">' + (childValue.name ? childValue.name : _this.settings.localization.avia_all_airports_caption ) + '</span></li>'
+                                );
+                            });
                         });
-                    });
-                    /* input focusout update start */
-                    var focus_timeout = 0;
-                    if(data[0]){
-                        container.find("#twidget-destination").off('focusout').on('focusout', function(){
-                            focus_timeout = setTimeout(function(){
-                                this_input.val(data[0].city_name);
-                                container.find('.twidget-destination-iata').text(data[0].code);
-                                destination_iata_input.val(data[0].code);
-                                this_input.parent().find('.twidget-pseudo-name').text(data[0].city_name);
-                                this_input.parent().find('.twidget-pseudo-country-name').text(', '+data[0].country_name);
-                                container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
-                                container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
-                            }, 200);
-                        });
-                    }
-                    /* input focusout update end */
-                    container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
-                    container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").each(function(){
-                        $(this).parent().parent().addClass('active');
-                        $(this).click(function(){
-                            clearTimeout(focus_timeout);
-                            var city = $(this).find('.twidget-city-name').attr('data-name'),
-                                country = $(this).find('.twidget-city-name').attr('data-country'),
-                                iata = $(this).find('.twidget-num-hotel').text();
-                            container.find('#twidget-destination').val(city);
-                            container.find('.twidget-destination-iata').text(iata);
-                            destination_iata_input.val(iata);
-                            this_input.parent().find('.twidget-pseudo-name').text(city);
-                            this_input.parent().find('.twidget-pseudo-country-name').text(', '+country);
-                            /* input focusout update start */
+                        /* input focusout update start */
+                        var focus_timeout = 0;
+                        if(data[0]){
                             container.find("#twidget-destination").off('focusout').on('focusout', function(){
+                                focus_timeout = setTimeout(function(){
+                                    this_input.val(data[0].city_name);
+                                    container.find('.twidget-destination-iata').text(data[0].code);
+                                    destination_iata_input.val(data[0].code);
+                                    this_input.parent().find('.twidget-pseudo-name').text(data[0].city_name);
+                                    this_input.parent().find('.twidget-pseudo-country-name').text(', '+data[0].country_name);
+                                    container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
+                                    container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
+                                }, 200);
+                            });
+                        }
+                        /* input focusout update end */
+                        container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
+                        container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").each(function(){
+                            $(this).parent().parent().addClass('active');
+                            $(this).click(function(){
+                                clearTimeout(focus_timeout);
+                                var city = $(this).find('.twidget-city-name').attr('data-name'),
+                                    country = $(this).find('.twidget-city-name').attr('data-country'),
+                                    iata = $(this).find('.twidget-num-hotel').text();
                                 container.find('#twidget-destination').val(city);
                                 container.find('.twidget-destination-iata').text(iata);
                                 destination_iata_input.val(iata);
                                 this_input.parent().find('.twidget-pseudo-name').text(city);
                                 this_input.parent().find('.twidget-pseudo-country-name').text(', '+country);
+                                /* input focusout update start */
+                                container.find("#twidget-destination").off('focusout').on('focusout', function(){
+                                    container.find('#twidget-destination').val(city);
+                                    container.find('.twidget-destination-iata').text(iata);
+                                    destination_iata_input.val(iata);
+                                    this_input.parent().find('.twidget-pseudo-name').text(city);
+                                    this_input.parent().find('.twidget-pseudo-country-name').text(', '+country);
+                                });
+                                /* input focusout update end */
+                                container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
+                                container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
                             });
-                            /* input focusout update end */
-                            container.find(".twidget-destination .twidget-auto-fill-wrapper ul li").remove();
-                            container.find(".twidget-destination .twidget-auto-fill-wrapper").removeClass('active');
                         });
+                        if(!container.find("#twidget-destination").is(':focus')){
+                            container.find("#twidget-destination").trigger('focusout');
+                        }
                     });
-                    if(!container.find("#twidget-destination").is(':focus')){
-                        container.find("#twidget-destination").trigger('focusout');
-                    }
                 });
-            });
-		   }
+            }
 
             /* hotel location from parameters */
             if(_this.settings.default_destination) {
@@ -843,223 +843,223 @@
         widget_html: function() {
             var _this = this;
             $(this.element).html('<!-- start widget-->'+
-            '    <div class="twidget-tabs">'+
-            '        <!--select tabs-->'+
-            '        <nav class="twidget-tab-links">'+
-            '            <ul class="clearfix">'+
-            '                <li id="twidget-flight-li" class="active"><a href="#twidget-tab1">'+_this.settings.localization.avia_tab_caption+'</a></li>'+
-            '                <li id="twidget-hotel-li"><a href="#twidget-tab2">'+_this.settings.localization.hotel_tab_caption+'</a></li>'+
-            '            </ul>'+
-            '        </nav>'+
-            '        <!-- tabs -->'+
-            '        <div class="twidget-tab-content">'+
-            '            <!--flight tab content-->'+
-            '            <div id="twidget-tab1" class="twidget-tab active">'+
-            '                <div class="twidget-header" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
-            '                    <a href="' + _this.settings.localization.avia_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-logo">' + _this.settings.localization.avia_logo_content + '</a>'+
-            '                    <a href="' + _this.settings.localization.avia_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-title">'+_this.settings.localization.avia_logo_caption+'</a>'+
-            '                </div>'+
-            '                <div class="clearfix"></div>'+
-            '                <form action="' + _this.settings.localization.avia_submit_domain + '" method="get" autocomplete="off" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
-            '                    <ul class="twidget-form-list clearfix">'+
-            '                        <!-- origin input -->'+
-            '                        <li class="twidget-origin">'+
-            '                            <div class="twidget-input-box">'+
-            '                                <label for="twidget-origin">'+_this.settings.localization.avia_input_origin_label+'</label>'+
-            '                                <input type="text" id="twidget-origin" placeholder="'+_this.settings.localization.avia_input_origin_label+'" required>'+
-            '                                <input type="hidden" name="origin_iata">'+
-            '                                <div class="twidget-pseudo-input">'+
-            '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <div class="twidget-origin-iata"></div>'+
-            '                            <div class="twidget-auto-fill-wrapper" data-type="avia">'+
-            '                                <ul></ul>'+
-            '                            </div>'+
-            '                        </li>'+
-            '                        <!-- destination input -->'+
-            '                        <li class="twidget-destination ' + (_this.settings.lock_destination ? 'twidget-input-locked' : '') + '">'+
-            '                            <div class="twidget-input-box">'+
-            '                                <label for="twidget-origin">'+_this.settings.localization.avia_input_destination_label+'</label>'+
-            '                                <input type="text" ' + (_this.settings.lock_destination ? 'disabled' : '') + ' id="twidget-destination" placeholder="'+_this.settings.localization.avia_input_destination_label+'" required>'+
-            '                                <input type="hidden" name="destination_iata">'+
-            '                                <div class="twidget-pseudo-input">'+
-            '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <div class="twidget-destination-iata"></div>'+
-            '                            <div class="twidget-auto-fill-wrapper" data-type="avia"><ul></ul></div>'+
-            '                        </li>'+
-            '                        <!-- flight datepicker -->'+
-            '                        <li id="twidget-flight-datepicker" class="twidget-flight-dates input-daterange input-group clearfix">'+
-            '                            <div class="twidget-dep-date twidget-form-item">'+
-            '                                <div class="twidget-input-box">'+
-            '                                    <label for="twidget-origin">'+_this.settings.localization.avia_input_date_start+'</label>'+
-            '                                    <input type="text" name="depart_date" placeholder="'+_this.settings.localization.avia_input_date_start+'" required value="'+dateOneWeekLater.getFullYear()+'-'+(dateOneWeekLater.getMonth()+1)+'-'+dateOneWeekLater.getDate()+'">'+
-            '                                    <div class="twidget-icon-cal"></div>'+
-            '                                    <span class="twidget-date-text twidget-date-depart"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <div class="twidget-return-date twidget-form-item">'+
-            '                                <div class="twidget-input-box">'+
-            '                                    <label for="twidget-origin">'+_this.settings.localization.avia_input_date_end+'</label>'+
-            '                                    <input type="text" name="return_date" placeholder="'+_this.settings.localization.avia_input_date_end+'" value="'+dateTwoWeekLater.getFullYear()+'-'+(dateTwoWeekLater.getMonth()+1)+'-'+dateTwoWeekLater.getDate()+'">'+
-            '                                    <div class="twidget-icon-cal""></div>'+
-            '                                    <div class="twidget-icon-delete" style="display: none;"></div>'+
-            '                                    <span class="twidget-date-text twidget-date-return"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                        </li>'+
-            '                        <!-- oneway flag -->'+
-            '                        <input type="hidden" name="oneway" disabled value="0">'+
-            '                        <!-- flight passengers -->'+
-            '                        <li class="twidget-passengers">'+
-            '                            <label for="twidget-passengers-detail">'+_this.settings.localization.avia_passengers_select_caption+'</label>'+
-            '                            <div class="twidget-passengers-detail">'+
-            '                                <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">'+_this.settings.localization.avia_passengers_caption_1+'</span></div>'+
-            '                                <div class="twidget-class">'+_this.settings.localization.avia_passengers_economy_class+'</div>'+
-            '                            </div>'+
-            '                            <!--start passenger selection-->'+
-            '                            <div id="twidget-passenger-form" style="display: none;">'+
-            '                                <div class="twidget-passenger-form-wrapper">'+
-            '                                    <ul class="twidget-age-group">'+
-            '                                        <li>'+
-            '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_adults + '</div>'+
-            '                                            <div class="twidget-cell twidget-age-select">'+
-            '                                                <span class="twidget-dec twidget-q-btn" data-age="adults">-</span><span class="twidget-num"><input type="text" name="adults" value="1"></span><span class="twidget-inc twidget-q-btn" data-age="adults">+</span>'+
-            '                                            </div>'+
-            '                                        </li>'+
-            '                                        <li>'+
-            '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_children + '</div>'+
-            '                                            <div class="twidget-cell twidget-age-select">'+
-            '                                                <span class="twidget-dec twidget-q-btn" data-age="children">-</span><span class="twidget-num"><input type="text" name="children" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="children">+</span>'+
-            '                                            </div>'+
-            '                                        </li>'+
-            '                                        <li>'+
-            '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_infants + '</div>'+
-            '                                            <div class="twidget-cell twidget-age-select">'+
-            '                                                <span class="twidget-dec twidget-q-btn" data-age="infants">-</span><span class="twidget-num"><input type="text" name="infants" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="infants">+</span>'+
-            '                                            </div>'+
-            '                                        </li>'+
-            '                                    </ul>'+
-            '                                    <div class="twidget-pas-class">'+
-            '                                        <div class="twidget-pass-check">'+
-            '                                            <input type="checkbox" class="twidget-pass-class">'+
-            '                                            <label>' + _this.settings.localization.avia_passengers_business_class_checkbox + '</label>'+
-            '                                            <input type="hidden" name="trip_class" value="0">'+
-            '                                        </div>'+
-            '                                    </div>'+
-            '                                    <ul class="twidget-age-group">'+
-            '                                        <li class="twidget-passengers-ready-button-wrapper">'+
-            '                                            <div class="twidget-passengers-ready-button">' + _this.settings.localization.avia_passengers_select_ready_button + '</div>'+
-            '                                        </li>'+
-            '                                    </ul>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <!-- end passenger selection-->'+
-            '                        </li>'+
-            '                        <!-- partner marker -->'+
-            '                        <input type="hidden" name="marker" value="11111">'+
-            '                        <!-- with_request flag -->'+
-            '                        <input type="hidden" name="with_request" value="1">'+
-            '                        <!-- submit button -->'+
-            '                        <li class="twidget-submit-button">'+
-            '                            <button type="submit">'+_this.settings.localization.avia_submit_button_text+'</button>'+
-            '                        </li>'+
-            '                    </ul>'+
-            '                </form>'+
-            '                <div class="twidget-tab-bottom">'+
-            ''+
-            '                </div>'+
-            '            </div>'+
-            '            <!-- hotel tab content -->'+
-            '            <div id="twidget-tab2" class="twidget-tab">'+
-            '                <div class="twidget-header" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
-            '                    <a href="' + _this.settings.localization.hotel_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-logo"><div class="twidget-logo-image twidget-hotellook-logo-img" width="30" height="30"></div>hotellook</a>'+
-            '                    <a href="' + _this.settings.localization.hotel_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-title">' + _this.settings.localization.hotel_logo_caption + '</a>'+
-            '                </div>'+
-            '                <form action="https://search.hotellook.com/" method="get" autocomplete="off" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
-            '                    <ul class="twidget-form-list clearfix">'+
-            '                        <!-- hotel city input -->'+
-            '                        <li class="twidget-city-hotel">'+
-            '                            <div class="twidget-input-box">'+
-            '                                <label for="twidget-city-hotel">' + _this.settings.localization.hotel_input_destination_label + '</label>'+
-            '                                <input type="text" id="twidget-city-hotel" placeholder="' + _this.settings.localization.hotel_input_destination_label + '" required>'+
-            '                                <span class="twidget-icon-hotel"></span>'+
-            '                                <input type="hidden" name="destination">'+
-            '                                <div class="twidget-pseudo-input">'+
-            '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <div class="twidget-auto-fill-wrapper"><ul></ul></div>'+
-            '                        </li>'+
-            '                        <!-- hotel datepicker -->'+
-            '                        <li id="twidget-hotel-datepicker" class="twidget-hotel-dates input-daterange input-group clearfix">'+
-            '                            <div class="twidget-start-date twidget-form-item">'+
-            '                                <div class="twidget-input-box">'+
-            '                                    <label for="checkIn">' + _this.settings.localization.hotel_input_date_start + '</label>'+
-            '                                    <input type="text" name="checkIn" placeholder="' + _this.settings.localization.hotel_input_date_start + '" value="'+dateOneWeekLater.getFullYear()+'-'+(dateOneWeekLater.getMonth()+1)+'-'+dateOneWeekLater.getDate()+'">'+
-            '                                    <div class="twidget-icon-cal"></div>'+
-            '                                    <span class="twidget-date-text twidget-date-checkin"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                            <div class="twidget-end-date twidget-form-item">'+
-            '                                <div class="twidget-input-box">'+
-            '                                    <label for="checkOut">' + _this.settings.localization.hotel_input_date_end + '</label>'+
-            '                                    <input type="text" name="checkOut" placeholder="' + _this.settings.localization.hotel_input_date_end + '" value="'+dateTwoWeekLater.getFullYear()+'-'+(dateTwoWeekLater.getMonth()+1)+'-'+dateTwoWeekLater.getDate()+'">'+
-            '                                    <div class="twidget-icon-cal"></div>'+
-            '                                    <span class="twidget-date-text twidget-date-checkout"></span>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                        </li>'+
-            '                        <!-- hotel guests selection -->'+
-            '                        <li class="twidget-hotel-guest">'+
-            '                            <label for="twidget-guest-detail">' + _this.settings.localization.hotel_guests_select_caption + '</label>'+
-            '                            <div class="twidget-guest-detail">'+
-            '                                <div class="twidget-guest-no"><span id="twidget-g-no">1</span> <span class="twidget-guest-caption">' + _this.settings.localization.hotel_guests_caption_1 + '</span></div>'+
-            '                            </div>'+
-            '                            <div id="twidget-guest-form" style="display: none;">'+
-            '                                <div class="twidget-passenger-form-wrapper">'+
-            '                                    <ul class="twidget-age-group">'+
-            '                                        <li>'+
-            '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_adults + '</div>'+
-            '                                            <div class="twidget-cell twidget-age-select">'+
-            '                                                <span class="twidget-dec twidget-q-btn" data-age="adults-g">-</span><span class="twidget-num"><input type="text" name="adults" value="1"></span><span class="twidget-inc twidget-q-btn" data-age="adults-g">+</span>'+
-            '                                            </div>'+
-            '                                        </li>'+
-            '                                        <li>'+
-            '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.hotel_guests_select_children + '</div>'+
-            '                                            <div class="twidget-cell twidget-age-select">'+
-            '                                                <span class="twidget-dec twidget-q-btn" data-age="children-g">-</span><span class="twidget-num"><input type="text" name="children_sum" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="children-g">+</span>'+
-            '                                            </div>'+
-            '                                        </li>'+
-            '                                    </ul>'+
-            '                                    <div class="twidget-pas-class" style="display: none;">'+
-            '                                        <ul class="twidget-age-group">'+
-            '                                        </ul>'+
-            '                                    </div>'+
-            '                                </div>'+
-            '                            </div>'+
-            '                        </li>'+
-            '                        <!-- partner marker -->'+
-            '                        <input type="hidden" name="marker" value="11111">'+
-            '                        <!-- hotel search language -->'+
-            '                        <input type="hidden" name="language" value="' + _this.settings.locale + '">'+
-            '                        <!-- submit button -->'+
-            '                        <li class="twidget-submit-button">'+
-            '                            <button type="submit">' + _this.settings.localization.hotel_submit_button_text + '</button>'+
-            '                        </li>'+
-            '                    </ul>'+
-            '                </form>'+
-            '                <div class="twidget-tab-bottom">'+
-            ''+
-            '                </div>'+
-            '            </div>'+
-            '            <!--end tab2-->'+
-            '        </div>'+
-            '        <!--end tab content-->'+
-            '    </div>'+
-            '    <!--end widget -->');
+                '    <div class="twidget-tabs">'+
+                '        <!--select tabs-->'+
+                '        <nav class="twidget-tab-links">'+
+                '            <ul class="clearfix">'+
+                '                <li id="twidget-flight-li" class="active"><a href="#twidget-tab1">'+_this.settings.localization.avia_tab_caption+'</a></li>'+
+                '                <li id="twidget-hotel-li"><a href="#twidget-tab2">'+_this.settings.localization.hotel_tab_caption+'</a></li>'+
+                '            </ul>'+
+                '        </nav>'+
+                '        <!-- tabs -->'+
+                '        <div class="twidget-tab-content">'+
+                '            <!--flight tab content-->'+
+                '            <div id="twidget-tab1" class="twidget-tab active">'+
+                '                <div class="twidget-header" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
+                '                    <a href="' + _this.settings.localization.avia_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-logo">' + _this.settings.localization.avia_logo_content + '</a>'+
+                '                    <a href="' + _this.settings.localization.avia_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-title">'+_this.settings.localization.avia_logo_caption+'</a>'+
+                '                </div>'+
+                '                <div class="clearfix"></div>'+
+                '                <form action="' + _this.settings.localization.avia_submit_domain + '" method="get" autocomplete="off" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
+                '                    <ul class="twidget-form-list clearfix">'+
+                '                        <!-- origin input -->'+
+                '                        <li class="twidget-origin">'+
+                '                            <div class="twidget-input-box">'+
+                '                                <label for="twidget-origin">'+_this.settings.localization.avia_input_origin_label+'</label>'+
+                '                                <input type="text" id="twidget-origin" placeholder="'+_this.settings.localization.avia_input_origin_label+'" required>'+
+                '                                <input type="hidden" name="origin_iata">'+
+                '                                <div class="twidget-pseudo-input">'+
+                '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <div class="twidget-origin-iata"></div>'+
+                '                            <div class="twidget-auto-fill-wrapper" data-type="avia">'+
+                '                                <ul></ul>'+
+                '                            </div>'+
+                '                        </li>'+
+                '                        <!-- destination input -->'+
+                '                        <li class="twidget-destination ' + (_this.settings.lock_destination ? 'twidget-input-locked' : '') + '">'+
+                '                            <div class="twidget-input-box">'+
+                '                                <label for="twidget-origin">'+_this.settings.localization.avia_input_destination_label+'</label>'+
+                '                                <input type="text" ' + (_this.settings.lock_destination ? 'disabled' : '') + ' id="twidget-destination" placeholder="'+_this.settings.localization.avia_input_destination_label+'" required>'+
+                '                                <input type="hidden" name="destination_iata">'+
+                '                                <div class="twidget-pseudo-input">'+
+                '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <div class="twidget-destination-iata"></div>'+
+                '                            <div class="twidget-auto-fill-wrapper" data-type="avia"><ul></ul></div>'+
+                '                        </li>'+
+                '                        <!-- flight datepicker -->'+
+                '                        <li id="twidget-flight-datepicker" class="twidget-flight-dates input-daterange input-group clearfix">'+
+                '                            <div class="twidget-dep-date twidget-form-item">'+
+                '                                <div class="twidget-input-box">'+
+                '                                    <label for="twidget-origin">'+_this.settings.localization.avia_input_date_start+'</label>'+
+                '                                    <input type="text" name="depart_date" placeholder="'+_this.settings.localization.avia_input_date_start+'" required value="' + dateOneWeekLater.getFullYear() + '-' + ('0' + (dateOneWeekLater.getMonth() + 1)).slice(-2) + '-' + ('0' + dateOneWeekLater.getDate()).slice(-2) + '">' +
+                '                                    <div class="twidget-icon-cal"></div>'+
+                '                                    <span class="twidget-date-text twidget-date-depart"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <div class="twidget-return-date twidget-form-item">'+
+                '                                <div class="twidget-input-box">'+
+                '                                    <label for="twidget-origin">'+_this.settings.localization.avia_input_date_end+'</label>'+
+                '                                    <input type="text" name="return_date" placeholder="'+_this.settings.localization.avia_input_date_end+'" value="' + dateTwoWeekLater.getFullYear() + '-' + ('0' + (dateTwoWeekLater.getMonth() + 1)).slice(-2) + '-' + ('0' + dateTwoWeekLater.getDate()).slice(-2) + '">' +
+                '                                    <div class="twidget-icon-cal""></div>'+
+                '                                    <div class="twidget-icon-delete" style="display: none;"></div>'+
+                '                                    <span class="twidget-date-text twidget-date-return"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                        </li>'+
+                '                        <!-- oneway flag -->'+
+                '                        <input type="hidden" name="oneway" disabled value="0">'+
+                '                        <!-- flight passengers -->'+
+                '                        <li class="twidget-passengers">'+
+                '                            <label for="twidget-passengers-detail">'+_this.settings.localization.avia_passengers_select_caption+'</label>'+
+                '                            <div class="twidget-passengers-detail">'+
+                '                                <div class="twidget-pas-no"><span id="twidget-pas">1</span> <span class="twidget-pas-caption">'+_this.settings.localization.avia_passengers_caption_1+'</span></div>'+
+                '                                <div class="twidget-class">'+_this.settings.localization.avia_passengers_economy_class+'</div>'+
+                '                            </div>'+
+                '                            <!--start passenger selection-->'+
+                '                            <div id="twidget-passenger-form" style="display: none;">'+
+                '                                <div class="twidget-passenger-form-wrapper">'+
+                '                                    <ul class="twidget-age-group">'+
+                '                                        <li>'+
+                '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_adults + '</div>'+
+                '                                            <div class="twidget-cell twidget-age-select">'+
+                '                                                <span class="twidget-dec twidget-q-btn" data-age="adults">-</span><span class="twidget-num"><input type="text" name="adults" value="1"></span><span class="twidget-inc twidget-q-btn" data-age="adults">+</span>'+
+                '                                            </div>'+
+                '                                        </li>'+
+                '                                        <li>'+
+                '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_children + '</div>'+
+                '                                            <div class="twidget-cell twidget-age-select">'+
+                '                                                <span class="twidget-dec twidget-q-btn" data-age="children">-</span><span class="twidget-num"><input type="text" name="children" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="children">+</span>'+
+                '                                            </div>'+
+                '                                        </li>'+
+                '                                        <li>'+
+                '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_infants + '</div>'+
+                '                                            <div class="twidget-cell twidget-age-select">'+
+                '                                                <span class="twidget-dec twidget-q-btn" data-age="infants">-</span><span class="twidget-num"><input type="text" name="infants" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="infants">+</span>'+
+                '                                            </div>'+
+                '                                        </li>'+
+                '                                    </ul>'+
+                '                                    <div class="twidget-pas-class">'+
+                '                                        <div class="twidget-pass-check">'+
+                '                                            <input type="checkbox" class="twidget-pass-class">'+
+                '                                            <label>' + _this.settings.localization.avia_passengers_business_class_checkbox + '</label>'+
+                '                                            <input type="hidden" name="trip_class" value="0">'+
+                '                                        </div>'+
+                '                                    </div>'+
+                '                                    <ul class="twidget-age-group">'+
+                '                                        <li class="twidget-passengers-ready-button-wrapper">'+
+                '                                            <div class="twidget-passengers-ready-button">' + _this.settings.localization.avia_passengers_select_ready_button + '</div>'+
+                '                                        </li>'+
+                '                                    </ul>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <!-- end passenger selection-->'+
+                '                        </li>'+
+                '                        <!-- partner marker -->'+
+                '                        <input type="hidden" name="marker" value="11111">'+
+                '                        <!-- with_request flag -->'+
+                '                        <input type="hidden" name="with_request" value="true">'+
+                '                        <!-- submit button -->'+
+                '                        <li class="twidget-submit-button">'+
+                '                            <button type="submit">'+_this.settings.localization.avia_submit_button_text+'</button>'+
+                '                        </li>'+
+                '                    </ul>'+
+                '                </form>'+
+                '                <div class="twidget-tab-bottom">'+
+                ''+
+                '                </div>'+
+                '            </div>'+
+                '            <!-- hotel tab content -->'+
+                '            <div id="twidget-tab2" class="twidget-tab">'+
+                '                <div class="twidget-header" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
+                '                    <a href="' + _this.settings.localization.hotel_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-logo"><div class="twidget-logo-image twidget-hotellook-logo-img" width="30" height="30"></div>hotellook</a>'+
+                '                    <a href="' + _this.settings.localization.hotel_logo_link + '?marker=' + _this.settings.marker + '" class="twidget-title">' + _this.settings.localization.hotel_logo_caption + '</a>'+
+                '                </div>'+
+                '                <form action="https://search.hotellook.com/" method="get" autocomplete="off" ' + (_this.settings.open_in_new_tab ? 'target="_blank"' : '') + '>'+
+                '                    <ul class="twidget-form-list clearfix">'+
+                '                        <!-- hotel city input -->'+
+                '                        <li class="twidget-city-hotel">'+
+                '                            <div class="twidget-input-box">'+
+                '                                <label for="twidget-city-hotel">' + _this.settings.localization.hotel_input_destination_label + '</label>'+
+                '                                <input type="text" id="twidget-city-hotel" placeholder="' + _this.settings.localization.hotel_input_destination_label + '" required>'+
+                '                                <span class="twidget-icon-hotel"></span>'+
+                '                                <input type="hidden" name="destination">'+
+                '                                <div class="twidget-pseudo-input">'+
+                '                                   <span class="twidget-pseudo-name"></span><span class="twidget-pseudo-country-name"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <div class="twidget-auto-fill-wrapper"><ul></ul></div>'+
+                '                        </li>'+
+                '                        <!-- hotel datepicker -->'+
+                '                        <li id="twidget-hotel-datepicker" class="twidget-hotel-dates input-daterange input-group clearfix">'+
+                '                            <div class="twidget-start-date twidget-form-item">'+
+                '                                <div class="twidget-input-box">'+
+                '                                    <label for="checkIn">' + _this.settings.localization.hotel_input_date_start + '</label>'+
+                '                                    <input type="text" name="checkIn" placeholder="' + _this.settings.localization.hotel_input_date_start + '" value="'+dateOneWeekLater.getFullYear()+'-'+(dateOneWeekLater.getMonth()+1)+'-'+dateOneWeekLater.getDate()+'">'+
+                '                                    <div class="twidget-icon-cal"></div>'+
+                '                                    <span class="twidget-date-text twidget-date-checkin"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                            <div class="twidget-end-date twidget-form-item">'+
+                '                                <div class="twidget-input-box">'+
+                '                                    <label for="checkOut">' + _this.settings.localization.hotel_input_date_end + '</label>'+
+                '                                    <input type="text" name="checkOut" placeholder="' + _this.settings.localization.hotel_input_date_end + '" value="'+dateTwoWeekLater.getFullYear()+'-'+(dateTwoWeekLater.getMonth()+1)+'-'+dateTwoWeekLater.getDate()+'">'+
+                '                                    <div class="twidget-icon-cal"></div>'+
+                '                                    <span class="twidget-date-text twidget-date-checkout"></span>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                        </li>'+
+                '                        <!-- hotel guests selection -->'+
+                '                        <li class="twidget-hotel-guest">'+
+                '                            <label for="twidget-guest-detail">' + _this.settings.localization.hotel_guests_select_caption + '</label>'+
+                '                            <div class="twidget-guest-detail">'+
+                '                                <div class="twidget-guest-no"><span id="twidget-g-no">1</span> <span class="twidget-guest-caption">' + _this.settings.localization.hotel_guests_caption_1 + '</span></div>'+
+                '                            </div>'+
+                '                            <div id="twidget-guest-form" style="display: none;">'+
+                '                                <div class="twidget-passenger-form-wrapper">'+
+                '                                    <ul class="twidget-age-group">'+
+                '                                        <li>'+
+                '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.avia_passengers_select_adults + '</div>'+
+                '                                            <div class="twidget-cell twidget-age-select">'+
+                '                                                <span class="twidget-dec twidget-q-btn" data-age="adults-g">-</span><span class="twidget-num"><input type="text" name="adults" value="1"></span><span class="twidget-inc twidget-q-btn" data-age="adults-g">+</span>'+
+                '                                            </div>'+
+                '                                        </li>'+
+                '                                        <li>'+
+                '                                            <div class="twidget-cell twidget-age-name">' + _this.settings.localization.hotel_guests_select_children + '</div>'+
+                '                                            <div class="twidget-cell twidget-age-select">'+
+                '                                                <span class="twidget-dec twidget-q-btn" data-age="children-g">-</span><span class="twidget-num"><input type="text" name="children_sum" value="0"></span><span class="twidget-inc twidget-q-btn" data-age="children-g">+</span>'+
+                '                                            </div>'+
+                '                                        </li>'+
+                '                                    </ul>'+
+                '                                    <div class="twidget-pas-class" style="display: none;">'+
+                '                                        <ul class="twidget-age-group">'+
+                '                                        </ul>'+
+                '                                    </div>'+
+                '                                </div>'+
+                '                            </div>'+
+                '                        </li>'+
+                '                        <!-- partner marker -->'+
+                '                        <input type="hidden" name="marker" value="11111">'+
+                '                        <!-- hotel search language -->'+
+                '                        <input type="hidden" name="language" value="' + _this.settings.locale + '">'+
+                '                        <!-- submit button -->'+
+                '                        <li class="twidget-submit-button">'+
+                '                            <button type="submit">' + _this.settings.localization.hotel_submit_button_text + '</button>'+
+                '                        </li>'+
+                '                    </ul>'+
+                '                </form>'+
+                '                <div class="twidget-tab-bottom">'+
+                ''+
+                '                </div>'+
+                '            </div>'+
+                '            <!--end tab2-->'+
+                '        </div>'+
+                '        <!--end tab content-->'+
+                '    </div>'+
+                '    <!--end widget -->');
         }
     } );
 
@@ -1069,7 +1069,7 @@
         return this.each( function() {
             if ( !$.data( this, "plugin_" + pluginName ) ) {
                 $.data( this, "plugin_" +
-                pluginName, new Plugin( this, options ) );
+                    pluginName, new Plugin( this, options ) );
             }
         } );
     };
